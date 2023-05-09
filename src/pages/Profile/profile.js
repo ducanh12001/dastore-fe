@@ -30,9 +30,9 @@ const Profile = () => {
 
     const { data, isLoading, errorMessage } = useOpenWeather({
         key: '03b81b9c18944e6495d890b189357388',
-        lat: '16.060094749570567',
-        lon: '108.2097695823264',
-        lang: 'en',
+        lat: '21.028511',
+        lon: '105.804817',
+        lang: 'vi',
         unit: 'metric', // values are (metric, standard, imperial)
     });
 
@@ -103,7 +103,7 @@ const Profile = () => {
                                     errorMessage={errorMessage}
                                     data={data}
                                     lang="en"
-                                    locationLabel="Đà Nẵng"
+                                    locationLabel="Hà Nội"
                                     unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
                                     showForecast
                                 />

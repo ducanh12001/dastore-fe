@@ -3,7 +3,7 @@ import "./register.css";
 import { DatePicker, Input } from 'antd';
 import { Card, Table, Space, Tag, PageHeader, Divider, Form, Button, notification } from 'antd';
 import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, AimOutlined, MoneyCollectOutlined } from '@ant-design/icons';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axiosClient from "../../apis/axiosClient";
 
 const { Search } = Input;
@@ -89,11 +89,11 @@ const RegisterCustomer = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tài khoản!',
+                                        message: 'Vui lòng nhập tên hiển thị!',
                                     },
                                 ]}
                             >
-                                <Input prefix={<UserOutlined className="siteformitemicon" />} placeholder="Tài khoản" />
+                                <Input prefix={<UserOutlined className="siteformitemicon" />} placeholder="Tên hiển thị" />
                             </Form.Item >
 
                             <Form.Item
@@ -119,7 +119,12 @@ const RegisterCustomer = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập e-mail!',
+                                        whitespace: true,
+                                        message: 'Vui lòng nhập email!',
+                                    },
+                                    {
+                                        type: 'email',
+                                        message: 'Email không hợp lệ!',
                                     },
                                 ]}
                             >
@@ -132,7 +137,12 @@ const RegisterCustomer = () => {
                                 rules={[
                                     {
                                         required: true,
+                                        whitespace: true,
                                         message: 'Vui lòng nhập số điện thoại!',
+                                    },
+                                    {
+                                        pattern: new RegExp(/^[0-9]{10,15}$/g),
+                                        message: 'Số điện thoại không hợp lệ, vui lòng kiểm tra lại!',
                                     },
                                 ]}
                             >
@@ -144,6 +154,9 @@ const RegisterCustomer = () => {
                                     Đăng Kí
                                 </Button>
                             </Form.Item>
+                            <div className="link-login">
+                                Đã có tài khoản? <Link className="link" to="/login">Đăng nhập</Link>
+                            </div>
                         </Form>
                     </Card>
                 </div>

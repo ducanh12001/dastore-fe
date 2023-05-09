@@ -32,7 +32,7 @@ function _Footer() {
                 </Col>
                 <Col span={5} className="footer">
                     <strong style={{ color: "#FFFFFF", fontSize: 20, cursor: "pointer" }}>Địa chỉ</strong>
-                    <p style={{ marginTop: 20, color: "#FFFFFF", fontWeight: 400, fontSize: 14, cursor: "pointer" }}>Chi nhánh 1: 350-352 Võ Văn Kiệt, <br /> Phường Cô Giang  Quận 1, Thành phố Hồ Chí Minh</p>
+                    <p style={{ marginTop: 20, color: "#FFFFFF", fontWeight: 400, fontSize: 14, cursor: "pointer" }}>Chi nhánh 1: 94E-94F Đường Láng, Phường Ngã Tư Sở, Quận Đống Đa, Hà Nội</p>
                     <p style={{ marginTop: 20, color: "#FFFFFF", fontWeight: 400, fontSize: 14, cursor: "pointer" }}>Chi nhánh 2: 94E-94F Đường Láng, Phường Ngã Tư Sở, Quận Đống Đa, Hà Nội</p>
 
                 </Col>

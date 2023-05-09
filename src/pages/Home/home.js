@@ -16,10 +16,13 @@ import service7 from "../../assets/image/service/service7.png";
 import service8 from "../../assets/image/service/service8.png";
 import service9 from "../../assets/image/service/service9.png";
 import service10 from "../../assets/image/service/service10.png";
+import triangleTopRight from "../../assets/icon/Triangle-Top-Right.svg"
 
 import { useHistory } from 'react-router-dom';
 import { RightOutlined, QrcodeOutlined } from '@ant-design/icons';
 import { Col, Row, Button, Pagination, Spin, Carousel, Card, List, BackTop, Affix, Avatar, Badge, Rate } from "antd";
+import Paragraph from "antd/lib/typography/Paragraph";
+import { numberWithCommas } from "../../utils/common";
 
 const DATE_TIME_FORMAT = "DD - MM - YYYY";
 const gridStyle = {
@@ -141,10 +144,10 @@ const Home = () => {
                         <Col span={5} >
                             <div class="right-banner image-promotion">
                                 <a href="https://cellphones.com.vn/samsung-galaxy-z-flip-4.html" class="right-banner__item">
-                                    <img src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/Screenshot_14.png" alt="FOLD4 |FLIP4<br>Giá rẻ bất ngờ" loading="lazy" class="right-banner__img" />
+                                    <img src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/s20-fe-right-th555.jpg" alt="FOLD4 |FLIP4<br>Giá rẻ bất ngờ" loading="lazy" class="right-banner__img" />
                                 </a>
                                 <a href="https://cellphones.com.vn/tablet/ipad.html?order=filter_price&amp;dir=asc" class="right-banner__item">
-                                    <img src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/ipad-th4-009.jpg" a lt="IPAD CHÍNH HÃNG<br>Lên đời từ 6.89 triệu" loading="lazy" class="right-banner__img" />
+                                    <img src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/right-banner-th5-newww1.jpg" a lt="IPAD CHÍNH HÃNG<br>Lên đời từ 6.89 triệu" loading="lazy" class="right-banner__img" />
                                 </a>
                                 <a href="https://cellphones.com.vn/laptop-lenovo-ideapad-3-15iau7-82rk001gvn.html" class="right-banner__item">
                                     <img src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/right-banner-ideapad-3.jpg" alt="LENOVO IDEAPAD<br> THIẾT KẾ CỨNG CÁP" loading="lazy" class="right-banner__img" />
@@ -186,43 +189,70 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div> */}
-                    <Row justify="center" className="container-home container" key="1">
-                        <div className="title-category">
-                            <a href="https://cellphones.com.vn/mobile.html" class="title" style={{ textAlign: "left" }}>
-                                <h3>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
-                            </a>
-                        </div>
-                        <List
-                            grid={{
-                                gutter: 16,
-                                xs: 1,
-                                sm: 2,
-                                md: 4,
-                                lg: 4,
-                                xl: 4,
-                                xxl: 5,
-                            }}
-                            dataSource={productsPhone}
-                            renderItem={(item) => (
-                                <List.Item >
-                                    <Badge.Ribbon text="Giảm giá" color="red" >
-                                        <Card className="card_product" onClick={() => handleReadMore(item._id)}>
-                                            <img style={{ width: '100%', height: 180 }} src={item.image} alt=""></img>
-                                            <div className="title_product">{item.name}</div>
-                                            <div className="price_group">
-                                                <div className="price_product">{item.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
-                                                <div className="promotion_product">{item.promotion.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
+                    <div className="list-products container" key="1">
+                        <Row>
+                            <Col>
+                                <div className="title-category">
+                                    <a href="" class="title">
+                                        <h3>ĐIỆN THOẠI NỔI BẬT NHẤT</h3>
+                                    </a>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row
+                            gutter={{ xs: 8, sm: 16, md: 24, lg: 48 }}
+                            className="row-product"
+                        >
+                            {productsPhone.map((item) => (
+                                <Col
+                                    xl={{ span: 6 }}
+                                    lg={{ span: 8 }}
+                                    md={{ span: 12 }}
+                                    sm={{ span: 12 }}
+                                    xs={{ span: 24 }}
+                                    className='col-product'
+                                    onClick={() => handleReadMore(item._id)}
+                                    key={item._id}
+                                >
+                                    <div>
+                                        {item.image ? (
+                                            <img
+                                                className='image-product'
+                                                src={item.image}
+                                            />
+                                        ) : (
+                                            <img
+                                                className='image-product'
+                                                src={require('../../assets/image/NoImageAvailable.jpg')}
+                                            />
+                                        )}
+                                        <div className='wrapper-products'>
+                                            <Paragraph
+                                                className='title-product'
+                                                ellipsis={{ rows: 2 }}
+                                            >
+                                                {item.name}
+                                            </Paragraph>
+                                            <div className="price-amount">
+                                                <Paragraph className='price-product'>
+                                                    {numberWithCommas(item.price - item.promotion)} đ
+                                                </Paragraph>
+                                                {item.promotion !== 0 &&
+                                                    <Paragraph className='price-cross'>
+                                                        {numberWithCommas(item.price)} đ
+                                                    </Paragraph>
+                                                }
                                             </div>
-                                            <div className="support_product">
-                                                Thu cũ lên đời - Giá thu cao nhất - Tặng thêm 1 triệu khi lên đời
-                                            </div>
-                                            <Rate className="rate_product" allowHalf defaultValue={5} />
-                                        </Card>
-                                    </Badge.Ribbon>
-                                </List.Item>
-                            )}
-                        />
-                    </Row>
+                                        </div>
+                                    </div>
+                                    <Paragraph className='badge' style={{ position: 'absolute', top: 10, left: 9 }}>
+                                        <span>Giảm giá</span>
+                                        <img src={triangleTopRight} />
+                                    </Paragraph>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
                 </div>
                 <div>
 
@@ -272,63 +302,70 @@ const Home = () => {
                         <p>Sản Phẩm <strong style={{ color: "#3b1d82" }}>Giảm Sốc</strong></p>
                     </div>
 
-                    {/* <div class="item" key="0">
-                                <div class="event-item">
-                                    <div class="countdown-timer">
-                                        <ul class="countdown-list" data-countdown="2020/08/08">
-                                            <li class="timer-item days">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>days</small>
-                                            </li>
-                                            <li class="timer-item hours">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>hours</small>
-                                            </li>
-                                            <li class="timer-item mins">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>mins</small>
-                                            </li>
-                                            <li class="timer-item seco">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>seco</small>
-                                            </li>
-                                        </ul>
-                                    </div>
+                    <div className="list-products container" key="1">
+                        <Row>
+                            <Col>
+                                <div className="title-category">
+                                    <a href="" class="title">
+                                        <h3>LAPTOP</h3>
+                                    </a>
                                 </div>
-                            </div> */}
-                    <Row justify="center" className="container-home container" key="1">
-                        <div className="title-category">
-                            <a href="https://cellphones.com.vn/mobile.html" class="title" style={{ textAlign: "left" }}>
-                                <h3>LAPTOP</h3>
-                            </a>
-                        </div>
-                        <List
-                            grid={{
-                                gutter: 16,
-                                xs: 1,
-                                sm: 2,
-                                md: 4,
-                                lg: 4,
-                                xl: 4,
-                                xxl: 5,
-                            }}
-                            dataSource={productsPC}
-                            renderItem={(item) => (
-                                <List.Item >
-                                    <Badge.Ribbon text="Giảm giá" color="red" >
-                                        <Card className="card_product" onClick={() => handleReadMore(item._id)}>
-                                            <img style={{ width: '100%', height: 180 }} src={item.image} alt=""></img>
-                                            <div className="title_product">{item.name}</div>
-                                            <div className="price_group">
-                                                <div className="price_product">{item.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
-                                                <div className="promotion_product">{item.promotion.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
+                            </Col>
+                        </Row>
+                        <Row
+                            gutter={{ xs: 8, sm: 16, md: 24, lg: 48 }}
+                            className="row-product"
+                        >
+                            {productsPC.map((item) => (
+                                <Col
+                                    xl={{ span: 6 }}
+                                    lg={{ span: 8 }}
+                                    md={{ span: 12 }}
+                                    sm={{ span: 12 }}
+                                    xs={{ span: 24 }}
+                                    className='col-product'
+                                    onClick={() => handleReadMore(item._id)}
+                                    key={item._id}
+                                >
+                                    <div>
+                                        {item.image ? (
+                                            <img
+                                                className='image-product'
+                                                src={item.image}
+                                            />
+                                        ) : (
+                                            <img
+                                                className='image-product'
+                                                src={require('../../assets/image/NoImageAvailable.jpg')}
+                                            />
+                                        )}
+                                        <div className='wrapper-products'>
+                                            <Paragraph
+                                                className='title-product'
+                                                ellipsis={{ rows: 2 }}
+                                            >
+                                                {item.name}
+                                            </Paragraph>
+                                            <div className="price-amount">
+                                                <Paragraph className='price-product'>
+                                                    {numberWithCommas(item.price - item.promotion)} đ
+                                                </Paragraph>
+                                                {item.promotion !== 0 &&
+                                                    <Paragraph className='price-cross'>
+                                                        {numberWithCommas(item.price)} đ
+                                                    </Paragraph>
+                                                }
                                             </div>
-                                            <div className="support_product">
-                                                Thu cũ lên đời - Giá thu cao nhất - Tặng thêm 1 triệu khi lên đời
-                                            </div>
-                                            <Rate className="rate_product" allowHalf defaultValue={5} />
-                                        </Card>
-                                    </Badge.Ribbon>
-                                </List.Item>
-                            )}
-                        />
-                    </Row>
+                                        </div>
+                                    </div>
+                                    <Paragraph className='badge' style={{ position: 'absolute', top: 10, left: 9 }}>
+                                        <span>Giảm giá</span>
+                                        <img src={triangleTopRight} />
+                                    </Paragraph>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
                 </div>
 
                 <div class="container-home container">
@@ -361,63 +398,70 @@ const Home = () => {
                         <p>Sản Phẩm <strong style={{ color: "#3b1d82" }}>Giảm Sốc</strong></p>
                     </div>
 
-                    {/* <div class="item" key="0">
-                                <div class="event-item">
-                                    <div class="countdown-timer">
-                                        <ul class="countdown-list" data-countdown="2020/08/08">
-                                            <li class="timer-item days">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>days</small>
-                                            </li>
-                                            <li class="timer-item hours">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>hours</small>
-                                            </li>
-                                            <li class="timer-item mins">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>mins</small>
-                                            </li>
-                                            <li class="timer-item seco">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>seco</small>
-                                            </li>
-                                        </ul>
-                                    </div>
+                    <div className="list-products container" key="1">
+                        <Row>
+                            <Col>
+                                <div className="title-category">
+                                    <a href="" class="title">
+                                        <h3>MÁY TÍNH BẢNG</h3>
+                                    </a>
                                 </div>
-                            </div> */}
-                    <Row justify="center" className="container-home container" key="1">
-                        <div className="title-category">
-                            <a href="https://cellphones.com.vn/mobile.html" class="title" style={{ textAlign: "left" }}>
-                                <h3>MÁY TÍNH BẢNG</h3>
-                            </a>
-                        </div>
-                        <List
-                            grid={{
-                                gutter: 16,
-                                xs: 1,
-                                sm: 2,
-                                md: 4,
-                                lg: 4,
-                                xl: 4,
-                                xxl: 5,
-                            }}
-                            dataSource={productsTablet}
-                            renderItem={(item) => (
-                                <List.Item >
-                                    <Badge.Ribbon text="Giảm giá" color="red" >
-                                        <Card className="card_product" onClick={() => handleReadMore(item._id)}>
-                                            <img style={{ width: '100%', height: 180 }} src={item.image} alt=""></img>
-                                            <div className="title_product">{item.name}</div>
-                                            <div className="price_group">
-                                                <div className="price_product">{item.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
-                                                <div className="promotion_product">{item.promotion.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</div>
+                            </Col>
+                        </Row>
+                        <Row
+                            gutter={{ xs: 8, sm: 16, md: 24, lg: 48 }}
+                            className="row-product"
+                        >
+                            {productsTablet.map((item) => (
+                                <Col
+                                    xl={{ span: 6 }}
+                                    lg={{ span: 8 }}
+                                    md={{ span: 12 }}
+                                    sm={{ span: 12 }}
+                                    xs={{ span: 24 }}
+                                    className='col-product'
+                                    onClick={() => handleReadMore(item._id)}
+                                    key={item._id}
+                                >
+                                    <div>
+                                        {item.image ? (
+                                            <img
+                                                className='image-product'
+                                                src={item.image}
+                                            />
+                                        ) : (
+                                            <img
+                                                className='image-product'
+                                                src={require('../../assets/image/NoImageAvailable.jpg')}
+                                            />
+                                        )}
+                                        <div className='wrapper-products'>
+                                            <Paragraph
+                                                className='title-product'
+                                                ellipsis={{ rows: 2 }}
+                                            >
+                                                {item.name}
+                                            </Paragraph>
+                                            <div className="price-amount">
+                                                <Paragraph className='price-product'>
+                                                    {numberWithCommas(item.price - item.promotion)} đ
+                                                </Paragraph>
+                                                {item.promotion !== 0 &&
+                                                    <Paragraph className='price-cross'>
+                                                        {numberWithCommas(item.price)} đ
+                                                    </Paragraph>
+                                                }
                                             </div>
-                                            <div className="support_product">
-                                                Thu cũ lên đời - Giá thu cao nhất - Tặng thêm 1 triệu khi lên đời
-                                            </div>
-                                            <Rate className="rate_product" allowHalf defaultValue={5} />
-                                        </Card>
-                                    </Badge.Ribbon>
-                                </List.Item>
-                            )}
-                        />
-                    </Row>
+                                        </div>
+                                    </div>
+                                    <Paragraph className='badge' style={{ position: 'absolute', top: 10, left: 9 }}>
+                                        <span>Giảm giá</span>
+                                        <img src={triangleTopRight} />
+                                    </Paragraph>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
                 </div>
 
                 <div class="container">

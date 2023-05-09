@@ -4,9 +4,9 @@ import styles from './header.module.css';
 import userApi from "../../../apis/userApi";
 import logo from "../../../assets/image/logo-dtu.png";
 import DropdownAvatar from "../../DropdownMenu/dropdownMenu";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { Layout, Avatar, Badge, Row, Col, List, Popover, Modal, Drawer } from 'antd';
-import { BellOutlined, NotificationTwoTone, MenuFoldOutlined, ShoppingOutlined } from '@ant-design/icons';
+import { BellOutlined, NotificationTwoTone, BarsOutlined, ShoppingOutlined } from '@ant-design/icons';
 
 const { Header } = Layout;
 
@@ -93,92 +93,87 @@ function Topbar() {
   }, [])
 
   return (
-      <Header
-        style={{ background: "#D70018", zIndex: 1 }}
-        className={styles.header}
-      >
-        <Row>
-          <Col span={14}>
-            <div style={{ position: 'relative', display: 'flex', alignItems: "center" }}>
-              <Row className={styles.headerText}>
-                <Col style={{ marginRight: 50 }}>
-                  <img style={{ color: "#000000", fontSize: 15, height:55, width: 80, cursor: "pointer" }} src={logo} onClick={() => handleLink("/home")}></img>
-                </Col>
-                <Col style={{ marginLeft: 20, marginRight: 40 }}>
-                  <p style={{ fontSize: 16, color: "#FFFFFF", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/home")}>Trang chủ</p>
-                </Col>
-                <Col style={{ marginRight: 40 }}>
-                  <p style={{ fontSize: 16, color: "#FFFFFF", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/event")}>Sản phẩm</p>
-                </Col>
-                <Col style={{ marginRight: 40 }}>
-                  <p style={{ fontSize: 16, color: "#FFFFFF", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/about")}>Về chúng tôi</p>
-                </Col>
-                <Col style={{ marginRight: 40 }}>
-                  <p style={{ fontSize: 16, color: "#FFFFFF", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/contact")}>Liên hệ</p>
-                </Col>
-              </Row>
-            </div>
-          </Col>
-          <Col span={8} offset={2} className={styles.headerText}>
-            <div style={{ position: 'relative', display: 'flex', float: 'right', alignItems: "center" }}>
-              <Row>
-                <Col onClick={() => handleLink("/cart")}>
-                  <p style={{marginRight: 10, padding: 0, margin: 0, color: '#FFFFFF'}}><ShoppingOutlined style={{ fontSize: '18px', color: '#FFFFFF' }} /> {cart} sản phẩm</p>
-                </Col>
-                <Col>
-                  <Badge style={{marginLeft: 10}} overflowCount={9999} count={userData?.score > 0 ? userData?.score : 0} />
-                </Col>
-              </Row>
-              <Row>
-                <span className={styles.container} style={{ marginRight: 15 }} >
-                  <Popover placement="bottomRight" title="Thông Báo" content={content} visible={visiblePopover} onVisibleChange={handleVisibleChange} trigger="click">
-                    <Badge count={countNotification} >
-                      <Avatar style={{ backgroundColor: "#FFFFFF", marginLeft: 5, marginRight: 5, cursor: "pointer" }} icon={<BellOutlined style={{ fontSize: '18px', color: '#000000' }} />} />
-                    </Badge>
-                  </Popover>
-                </span>
-              </Row>
-              <Row>
-                <DropdownAvatar key="avatar" />
-              </Row>
-              <Modal
-                title={titleNotification}
-                visible={visible}
-                onOk={handleOk}
-                onCancel={handleOk}
-                cancelButtonProps={{ style: { display: 'none' } }}
-              >
-                <p dangerouslySetInnerHTML={{ __html: contentNotification }} ></p>
-              </Modal>
-            </div>
-          </Col>
-          {/* <Col className={styles.headerLogo} span="16">
-            <div style={{ position: 'relative', display: 'flex', float: 'right', alignItems: "center", marginRight: 20 }}>
-              <p onClick={showDrawer}><MenuFoldOutlined /></p>
-            </div>
-            <Drawer
-              title="3A2S"
-              placement="right"
-              closable={false}
-              onClose={onClose}
-              visible={visibleDrawer}
+    <Header
+      style={{ background: "#D70018" }}
+      className={styles.header}
+    >
+      <div className="">
+        <img style={{ color: "#000000", fontSize: 15, height: 55, cursor: "pointer" }} src={logo} onClick={() => handleLink("/home")}></img>
+      </div>
+      <BarsOutlined className={styles.bars} onClick={showDrawer}/>
+      <div className={styles.navmenu}>
+        <NavLink className={styles.navlink} to="/home" activeStyle>
+          Trang chủ
+        </NavLink>
+        <NavLink className={styles.navlink} to="/event" activeStyle>
+          Sản phẩm
+        </NavLink>
+        <NavLink className={styles.navlink} to="/about" activeStyle>
+          Về chúng tôi
+        </NavLink>
+        <NavLink className={styles.navlink} to="/contact" activeStyle>
+          Liên hệ
+        </NavLink>
+      </div>
+      <div className={styles.logBtn}>
+        <div style={{ position: 'relative', display: 'flex', float: 'right', alignItems: "center", cursor: 'pointer' }}>
+            <Row>
+              <Col onClick={() => handleLink("/cart")}>
+                <p style={{ marginRight: 10, padding: 0, margin: 0, color: '#FFFFFF' }}><ShoppingOutlined style={{ fontSize: '18px', color: '#FFFFFF' }} /> {cart} sản phẩm</p>
+              </Col>
+              <Col>
+                <Badge style={{ marginLeft: 10 }} overflowCount={9999} count={userData?.score > 0 ? userData?.score : 0} />
+              </Col>
+            </Row>
+            <Row>
+              <span className={styles.container} style={{ marginRight: 15 }} >
+                <Popover placement="bottomRight" title="Thông Báo" content={content} visible={visiblePopover} onVisibleChange={handleVisibleChange} trigger="click">
+                  <Badge count={countNotification} >
+                    <Avatar style={{ backgroundColor: "#FFFFFF", marginLeft: 5, marginRight: 5, cursor: "pointer" }} icon={<BellOutlined style={{ fontSize: '18px', color: '#000000' }} />} />
+                  </Badge>
+                </Popover>
+              </span>
+            </Row>
+            <Row>
+              <DropdownAvatar key="avatar" />
+            </Row>
+            <Modal
+              title={titleNotification}
+              visible={visible}
+              onOk={handleOk}
+              onCancel={handleOk}
+              cancelButtonProps={{ style: { display: 'none' } }}
             >
-              <Col style={{ marginRight: 50 }}>
-                <p style={{ fontSize: 16, color: "#000000", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/home")}>Home</p>
-              </Col>
-              <Col style={{ marginRight: 50 }}>
-                <p style={{ fontSize: 16, color: "#000000", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/event")}>Event</p>
-              </Col>
-              <Col style={{ marginRight: 50 }}>
-                <p style={{ fontSize: 16, color: "#000000", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => handleLink("/attendance")}>Attendance</p>
-              </Col>
-              <Col style={{ marginRight: 50 }}>
-                <p style={{ fontSize: 16, color: "#000000", cursor: 'pointer' }} className={styles.hoverLink} onClick={() => Logout()}>Logout</p>
-              </Col>
-            </Drawer>
-          </Col> */}
-        </Row>
-      </Header >
+              <p dangerouslySetInnerHTML={{ __html: contentNotification }} ></p>
+            </Modal>
+        </div>
+      </div>
+      <Drawer title="Menu" placement="right" onClose={onClose} open={visibleDrawer}>
+        <div className={styles.navmenu2}>
+          <NavLink className={styles.navlink2} to="/home" activeStyle>
+            Trang chủ
+          </NavLink>
+          <NavLink className={styles.navlink2} to="/event" activeStyle>
+            Sản phẩm
+          </NavLink>
+          <NavLink className={styles.navlink2} to="/about" activeStyle>
+            Về chúng tôi
+          </NavLink>
+          <NavLink className={styles.navlink2} to="/contact" activeStyle>
+            Liên hệ
+          </NavLink>
+          <div className={styles.navlink2}>
+            <div style={{display: 'flex', cursor: 'pointer'}} onClick={() => handleLink("/cart")}>
+              <p style={{ marginRight: 10, padding: 0, margin: 0, color: 'black' }}><ShoppingOutlined style={{ fontSize: '18px', color: 'black' }} /> {cart} sản phẩm</p>
+              <Badge style={{ marginLeft: 10 }} overflowCount={9999} count={userData?.score > 0 ? userData?.score : 0} />
+            </div>
+          </div>
+          <div className={styles.navlink2}>
+            <DropdownAvatar key="avatar" />
+          </div>
+        </div>
+      </Drawer>
+    </Header >
   );
 }
 

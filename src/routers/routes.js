@@ -14,6 +14,7 @@ import Profile from '../pages/Profile/profile';
 import Cart from '../pages/Purchase/Cart/cart';
 import Pay from '../pages/Purchase/Pay/pay';
 import CartHistory from '../pages/Purchase/ManagementCart/cartHistory';
+import Contact from '../pages/Contact/contact';
 
 import { Layout } from 'antd';
 import { withRouter } from "react-router";
@@ -81,6 +82,9 @@ const RouterURL = withRouter(({ location }) => {
                     <Route exact path="/cart">
                         <Cart />
                     </Route>
+                    <Route exact path="/contact">
+                        <Contact />
+                    </Route>
                     
                     <Layout>
                         <Footer />
@@ -119,6 +123,9 @@ const RouterURL = withRouter(({ location }) => {
                         <PublicContainer />
                     </Route>
                     <Route exact path="/cart">
+                        <PublicContainer />
+                    </Route>
+                    <Route exact path="/contact">
                         <PublicContainer />
                     </Route>
                     <Route exact path="/login">

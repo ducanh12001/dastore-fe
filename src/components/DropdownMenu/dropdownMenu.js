@@ -3,7 +3,7 @@ import { Avatar, Dropdown, Row } from 'antd';
 import { Menu } from 'antd';
 import { UserOutlined, SettingOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
-import styles from '../DropdownMenu/dropdownMenu';
+import styles from '../layout/Header/header.module.css'
 import userApi from "../../apis/userApi";
 
 function DropdownAvatar() {
@@ -32,9 +32,10 @@ function DropdownAvatar() {
     (async () => {
       try {
         const response = await userApi.getProfile();
+        console.log(response);
         setUserData(response.user);
         const checkLogin = localStorage.getItem("client");
-        if(checkLogin){
+        if (checkLogin) {
           setIsLogin(checkLogin);
         }
       } catch (error) {
@@ -68,43 +69,42 @@ function DropdownAvatar() {
     </Menu>
   );
 
-  const avatarPublic = (
-    <Menu>
-      <Menu.Item icon={<UserOutlined />} >
-        <a target="_blank" rel="noopener noreferrer" onClick={Login}>
-          Đăng nhập
-        </a>
-      </Menu.Item>
-    </Menu>
-  )
-
-
   return (
+    <div>
+      {isLogin ?
+        <Dropdown key="avatar" placement="bottomCenter" overlay={avatarPrivate} arrow>
+          <Row
+            style={{
+              paddingLeft: 5, paddingRight: 8, cursor: 'pointer'
+            }}
+            className={styles.container}
+          >
 
-    <Dropdown key="avatar" placement="bottomCenter" overlay={isLogin ? avatarPrivate :avatarPublic } arrow>
-      <Row
-        style={{
-          paddingLeft: 5, paddingRight: 8, cursor: 'pointer'
-        }}
-        className={styles.container}
-      >
-
-        <div style={{ display: 'flex', alignItems: "center", justifyContent: "center" }}>
-          <div style={{ paddingRight: 10 }}>
-            <Avatar
-              style={{
-                outline: 'none',
-              }}
-              src={userData ? userData.image : "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"}
-            />
-          </div>
-          <p style={{ padding: 0, margin: 0, textTransform: 'capitalize', color: "#000000" }} >
-            {userData?.username}
-          </p>
-        </div>
-        {/* <p>Score: {userData.score}</p> */}
-      </Row>
-    </Dropdown>
+            <div style={{ display: 'flex', alignItems: "center", justifyContent: "center" }}>
+              <div style={{ paddingRight: 10 }}>
+                <Avatar
+                  style={{
+                    outline: 'none',
+                  }}
+                  src={userData ? userData.image : "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"}
+                />
+              </div>
+              <p style={{ padding: 0, margin: 0, textTransform: 'capitalize', color: "#FFFFFF" }} >
+                {userData?.username}
+              </p>
+            </div>
+            {/* <p>Score: {userData.score}</p> */}
+          </Row>
+        </Dropdown>
+        :
+        <span
+          className={styles.loginSpan}
+          onClick={Login}
+        >
+          Đăng nhập
+        </span>
+      }
+    </div>
   );
 };
 
