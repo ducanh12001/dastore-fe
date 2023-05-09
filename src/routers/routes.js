@@ -22,6 +22,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Evaluation from "../pages/Event/Evaluation/evaluation";
 import FinalPay from "../pages/Purchase/FinalPay/finalPay";
 import Register from "../pages/Register/register"
+import ProductPage from "../pages/ProductPage/productPage";
 
 const RouterURL = withRouter(({ location }) => {
 
@@ -35,6 +36,9 @@ const RouterURL = withRouter(({ location }) => {
                     </Route>
                     <Route exact path="/event">
                         <Event />
+                    </Route>
+                    <Route exact path="/products">
+                        <ProductPage />
                     </Route>
                     <PrivateRoute exact path="/attendance">
                         <Attendance />
@@ -75,6 +79,9 @@ const RouterURL = withRouter(({ location }) => {
                     </Route>
                     <Route exact path="/event">
                         <Event />
+                    </Route>
+                    <Route exact path="/products">
+                        <ProductPage />
                     </Route>
                     <Route exact path="/product-detail/:id">
                         <ProductDetail />
@@ -117,6 +124,9 @@ const RouterURL = withRouter(({ location }) => {
             <Router>
                 <Switch>
                     <Route exact path="/">
+                        <PublicContainer />
+                    </Route>
+                    <Route exact path="/products">
                         <PublicContainer />
                     </Route>
                     <Route exact path="/product-detail/:id">

@@ -105,7 +105,7 @@ function Topbar() {
         <NavLink className={styles.navlink} to="/home" activeStyle>
           Trang chủ
         </NavLink>
-        <NavLink className={styles.navlink} to="/event" activeStyle>
+        <NavLink className={styles.navlink} to="/products" activeStyle>
           Sản phẩm
         </NavLink>
         <NavLink className={styles.navlink} to="/about" activeStyle>

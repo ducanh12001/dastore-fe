@@ -1,0 +1,144 @@
+.wrapper {
+    margin-top: 10px;
+    margin: 20px 20px;
+}
+
+.wrapper>div>section>aside {
+    background: none !important;
+    min-width: 100% !important;
+}
+
+.wrapper>div>section>aside>div {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.title-fast-filter-menu {
+    margin: 10px 0px 6px 5px;
+}
+
+.title-fast-filter-menu>img {
+    margin-top: -8px;
+    margin-right: 12px;
+    width: 24px;
+}
+
+.title-fast-filter-menu>span {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.fast-filter-menu {
+    margin-right: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dfdfdf;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-filter-group {
+    margin-left: 8px;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.fast-filter-menu-2 {
+    margin-right: 8px;
+    border-bottom: 1px solid #dfdfdf;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.search-price {
+    text-align: center;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-price-min,
+.input-price-max {
+    width: 120px !important;
+}
+
+@media screen and (min-width: 768px) {
+
+    .input-price-min,
+    .input-price-max {
+        width: 90px !important;
+    }
+}
+
+.input-price-min {
+    border-right-width: 1px !important;
+    margin-right: 0px !important;
+}
+
+.site-input-split {
+    width: 30px !important;
+    border-left: 0;
+    border-right: 0;
+    background-color: #fff !important;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 768px) {
+    .wrapper>div>section>aside>div {
+        margin-left: 3%;
+        margin-right: 0;
+    }
+}
+
+.wrapper-action-btn {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.refresh-filter-btn {
+    margin: 12px 0px 12px 0px;
+    color: #fff;
+    background-color: #646464;
+    width: 100%;
+    font-size: 15px;
+}
+
+.refresh-filter-btn:focus {
+    color: #fff !important;
+    background-color: #646464 !important;
+    border-color: #646464 !important;
+}
+
+
+.apply-filter-btn {
+    margin: 12px 0px 12px 0px;
+    color: #fff;
+    background-color: #359640;
+    width: 100%;
+    font-size: 15px;
+}
+
+.apply-filter-btn:focus {
+    color: #fff !important;
+    background-color: #359640 !important;
+    border-color: #359640 !important;
+}
+
+.header1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.header1 .ant-btn-primary {
+    background-color: #fff !important;
+    height: 31px !important;
+}
+
+.header-search {
+    margin-left: 3% !important;
+    margin-right: 3% !important;
+}
+
+.list-products {
+    margin: 0 3% 30px 3%;
+}

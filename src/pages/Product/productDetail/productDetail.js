@@ -6,10 +6,8 @@ import eventApi from "../../../apis/eventApi";
 import productApi from "../../../apis/productApi";
 import { useHistory } from 'react-router-dom';
 import { Col, Row, Tag, Spin, Card } from "antd";
-import { DateTime } from "../../../utils/dateTime";
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { Typography, Button, Badge, Breadcrumb, Popconfirm, Progress, notification, Form, Input, Select, Rate } from 'antd';
-import { HistoryOutlined, AuditOutlined, AppstoreAddOutlined, CloseOutlined, UserOutlined, MehOutlined, TeamOutlined, HomeOutlined, CheckOutlined } from '@ant-design/icons';
+import { AuditOutlined, HomeOutlined } from '@ant-design/icons';
 
 import Slider from "react-slick";
 

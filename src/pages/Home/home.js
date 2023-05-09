@@ -169,26 +169,6 @@ const Home = () => {
                         <p>Sản Phẩm <strong style={{ color: "#3b1d82" }}>Giảm Sốc</strong></p>
                     </div>
 
-                    {/* <div class="item" key="0">
-                                <div class="event-item">
-                                    <div class="countdown-timer">
-                                        <ul class="countdown-list" data-countdown="2020/08/08">
-                                            <li class="timer-item days">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>days</small>
-                                            </li>
-                                            <li class="timer-item hours">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>hours</small>
-                                            </li>
-                                            <li class="timer-item mins">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>mins</small>
-                                            </li>
-                                            <li class="timer-item seco">
-                                                <strong style={{ fontSize: 18 }}>00</strong><br></br><small>seco</small>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div> */}
                     <div className="list-products container" key="1">
                         <Row>
                             <Col>
