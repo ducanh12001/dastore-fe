@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import triangleTopRight from "../../assets/icon/Triangle-Top-Right.svg"
 import { numberWithCommas } from "../../utils/common";
 import { CaretDownOutlined } from '@ant-design/icons';
+import PaginationComponent from "./pagination";
 const { Search } = Input;
 
 const { Option } = Select;
@@ -29,35 +30,30 @@ const { Paragraph, Text } = Typography;
 const ProductPage = () => {
     const [categories, setCategories] = useState([]);
     const [productList, setProductList] = useState([]);
-    const [totalEvent, setTotalEvent] = useState(Number);
     const [eventListHome, setEventListHome] = useState([]);
     const [loading, setLoading] = useState(true);
     const [priceFrom, setPriceFrom] = useState(0);
     const [priceTo, setPriceTo] = useState(0);
-    const [keyword, setKeyword] = useState('');
+    const [pagination, setPagination] = useState({
+        pageNumber: 1,
+        pageSize: 12,
+        totalItems: 1,
+        totalPages: 1,
+    });
+
     const history = useHistory();
 
     useEffect(() => {
         (async () => {
-            try {
-                const response = await productApi.getListProducts({ page: 1, limit: 10 })
-                setProductList(response.data.docs)
-                setTotalEvent(response);
-                setLoading(false);
-            } catch (error) {
-                console.log('Failed to fetch event list:' + error);
-            }
 
             try {
                 const response = await productApi.getListEvents(1, 6)
                 setEventListHome(response.data)
-                setTotalEvent(response.total_count);
             } catch (error) {
                 console.log('Failed to fetch event list:' + error);
             }
             try {
                 const response = await productApi.getCategory({ limit: 10, page: 1 });
-                console.log(response);
                 setCategories(response.data.docs);
             } catch (error) {
                 console.log(error);
@@ -65,17 +61,49 @@ const ProductPage = () => {
         })();
     }, [])
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await productApi.getListProducts({ page: pagination.pageNumber, limit: pagination.pageSize })
+                setProductList(response.data.docs);
+                setPagination({
+                    pageNumber: response.data.page,
+                    pageSize: 12,
+                    totalItems: response.data.totalDocs,
+                    totalPages: response.data.totalPages,
+                  });
+                setLoading(false);
+            } catch (error) {
+                console.log('Failed to fetch event list:' + error);
+            }
+        })();
+    }, [pagination.pageNumber])
+
     const handleReadMore = (id) => {
         history.push("product-detail/" + id)
     }
 
-    const onSearch = () => {
-
+    const onSearch = async (name) => {
+        try {
+            const res = await productApi.searchProduct(name);
+            setProductList(res.data.docs);
+            console.log(res)
+        } catch (error) {
+            console.log('search to fetch category list:' + error);
+        }
     }
 
     const onCheck = () => {
 
     }
+
+    const handlePriceTo = (e) => {
+        setPriceTo(parseFloat(e.target.value));
+      };
+    
+      const handlePriceFrom = (e) => {
+        setPriceFrom(parseFloat(e.target.value));
+      };
 
     const onClickReset = () => {
 
@@ -83,6 +111,13 @@ const ProductPage = () => {
 
     const onClickFilter = () => {
 
+    }
+
+    const handleChangePageNumber = (pageNumber, pageSize) => {
+        setPagination({
+            ...pagination,
+            pageNumber: pageNumber,
+        });
     }
 
     return (
@@ -104,18 +139,18 @@ const ProductPage = () => {
                             </div>
                             <div className='fast-filter-menu'>
                                 <Paragraph className='title-filter-group'>
-                                Theo danh mục
+                                    Theo danh mục
                                 </Paragraph>
                                 {categories &&
                                     <ul className="menu-tree">
-                                    {categories.map((category) => (
-                                        <li key={category.id}>
-                                            <div className="menu-category">
-                                                {category.name}
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>}
+                                        {categories.map((category) => (
+                                            <li key={category.id}>
+                                                <div className="menu-category">
+                                                    {category.name}
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>}
                             </div>
 
                             <div className='fast-filter-menu-2'>
@@ -132,7 +167,7 @@ const ProductPage = () => {
                                         max={1000000000}
                                         step={100}
                                         value={priceFrom}
-                                        onChange={() => {}}
+                                        onChange={(val) => handlePriceFrom(val)}
                                         onKeyPress={(event) => {
                                             if (!`${event.target.value}${event.key}`.match(/^[0-9]{0,10}$/)) {
                                                 event.preventDefault();
@@ -156,7 +191,7 @@ const ProductPage = () => {
                                         max={1000000000}
                                         step={100}
                                         value={priceTo}
-                                        onChange={() => {}}
+                                        onChange={(val) => handlePriceTo(val)}
                                         onKeyPress={(event) => {
                                             if (!`${event.target.value}${event.key}`.match(/^[0-9]{0,10}$/)) {
                                                 event.preventDefault();
@@ -215,13 +250,11 @@ const ProductPage = () => {
                                 enterButton
                                 className='style-search'
                                 prefix=" "
-                                onChange={(e) => setKeyword(e.target.value)}
-                                value={keyword}
                             />
                         </Col>
                     </Row>
 
-                    <div className='list-products'>
+                    <div className='list-products2'>
                         <Row className='row-product' gutter={[32, 8]}>
                             {productList.map((item) => (
                                 <Col
@@ -266,15 +299,21 @@ const ProductPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <Paragraph className='badge' style={{ position: 'absolute', top: 10, left: 9 }}>
-                                        <span>Giảm giá</span>
-                                        <img src={triangleTopRight} />
-                                    </Paragraph>
+                                    {item.promotion !== 0 &&
+                                        <Paragraph className='badge' style={{ position: 'absolute', top: 10, left: 9 }}>
+                                            <span>Giảm giá</span>
+                                            <img src={triangleTopRight} />
+                                        </Paragraph>
+                                    }
                                 </Col>
                             ))}
                         </Row>
                         <Row className="style-pagination">
-
+                            <PaginationComponent
+                                pagination={pagination}
+                                handleChangePagination={handleChangePageNumber}
+                                isShowSize={false}
+                            />
                         </Row>
                     </div>
                 </Col>

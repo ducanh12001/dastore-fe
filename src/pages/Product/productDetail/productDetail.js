@@ -283,7 +283,7 @@ const ProductDetail = () => {
                                 <Card className="card_image" bordered={false}>
                                     <img src={productDetail.image} />
                                     <div class="promotion" >
-                                        <img className="promotion_banner" src="https://cdn2.cellphones.com.vn/x/https://dashboard.cellphones.com.vn/storage/banner-product-pkchaohe.gif" alt="Sale phụ kiện chào hè" />
+                                        <img className="promotion_banner" src={require('../../../assets/image/banner/promotion_banner.gif')} alt="Sale phụ kiện chào hè" />
                                     </div>
                                 </Card>
                             </Col>

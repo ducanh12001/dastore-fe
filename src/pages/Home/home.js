@@ -88,7 +88,7 @@ const Home = () => {
                 console.log(error);
             }
             try {
-                const data = { limit: 10, page: 1 };
+                const data = { limit: 8, page: 1 };
                 const response = await productApi.getProductsByCategory(data, "64429b69cba6463b406bb281");
                 console.log(response);
                 setProductsPhone(response.data.docs);

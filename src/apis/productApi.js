@@ -33,8 +33,14 @@ const productApi = {
         }
         const url = '/category/products/' + id;
         return axiosClient.post(url, data);
-    }
-
+    },
+    searchProduct(name) {
+        const params = {
+            name: name
+        }
+        const url = '/product/searchByName';
+        return axiosClient.get(url, { params });
+    },
 }
 
 export default productApi;

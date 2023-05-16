@@ -940,6 +940,7 @@ ul {
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .promotion1 {
@@ -992,7 +993,7 @@ ul {
 }
 
 .title-product {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     line-height: 1.5;
     height: 45px;

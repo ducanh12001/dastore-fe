@@ -137,8 +137,27 @@
 .header-search {
     margin-left: 3% !important;
     margin-right: 3% !important;
+    margin-top: 10px;
 }
 
-.list-products {
+.list-products2 {
     margin: 0 3% 30px 3%;
+}
+
+.style-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-component {
+    margin: 20px 0;
+}
+
+.pagination-component-page-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pagination-center {
+    justify-content: center !important;
 }
