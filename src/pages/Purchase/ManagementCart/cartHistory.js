@@ -13,6 +13,7 @@ import { HistoryOutlined, AuditOutlined, AppstoreAddOutlined, CloseOutlined, Use
 import moment from 'moment';
 
 import Slider from "react-slick";
+import { numberWithCommas } from "../../../utils/common";
 
 const { Meta } = Card;
 const { Option } = Select;
@@ -24,6 +25,7 @@ const { TextArea } = Input;
 const CartHistory = () => {
 
     const [orderList, setOrderList] = useState([]);
+    const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [suggest, setSuggest] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -204,7 +206,10 @@ const CartHistory = () => {
                 <ul>
                     {products.map((item, index) => (
                         <li key={index}>
-                            {item.product}
+                            <span style={{marginRight: 5, fontWeight: 'bold', color: 'red', fontSize: '16px'}}>
+                             {item.quantity} x
+                            </span>
+                            {getProductName(item.product)} 
                         </li>
                     ))}
                 </ul>
@@ -214,6 +219,7 @@ const CartHistory = () => {
             title: 'Tổng đơn hàng',
             dataIndex: 'orderTotal',
             key: 'orderTotal',
+            render: (orderTotal) => numberWithCommas(orderTotal)+ ' đ'
         },
         {
             title: 'Địa chỉ',
@@ -244,7 +250,7 @@ const CartHistory = () => {
         (async () => {
             try {
                 await productApi.getOrderByUser().then((item) => {
-                    console.log(item);
+                    console.log("d",item);
                     setOrderList(item);
                 });
                 setLoading(false);
@@ -252,9 +258,21 @@ const CartHistory = () => {
             } catch (error) {
                 console.log('Failed to fetch event detail:' + error);
             }
+            try {
+                const response = await productApi.getListProducts({ page: 1, limit: 10000 })
+                setProductList(response.data.docs);
+                setLoading(false);
+            } catch (error) {
+                console.log('Failed to fetch event list:' + error);
+            }
         })();
+        
         window.scrollTo(0, 0);
     }, [])
+
+    const getProductName = (id) => {
+        return productList.find(item => item._id === id)?.name || '';
+    }
 
     return (
         <div>
